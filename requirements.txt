@@ -3,7 +3,9 @@ streamlit==1.35.0
 google-generativeai==0.7.2
 langchain==0.2.14
 langchain-google-genai==1.0.8
-chromadb==0.5.3
+# chromadb==0.5.3  # Use 0.4.x for Python <3.12; onnxruntime unavailable for Python 3.15
+# For Python 3.11: pip install chromadb==0.5.3
+# For Python 3.12+: ChromaDB RAG is optional (app degrades gracefully without it)
 requests==2.32.3
 python-dotenv==1.0.1
 pydantic==2.7.4
