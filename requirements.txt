@@ -1,0 +1,27 @@
+# ─── Core Application Dependencies ───────────────────────────────────────────
+streamlit==1.35.0
+google-generativeai==0.7.2
+langchain==0.2.14
+langchain-google-genai==1.0.8
+chromadb==0.5.3
+requests==2.32.3
+python-dotenv==1.0.1
+pydantic==2.7.4
+pandas==2.2.2
+numpy==1.26.4
+
+# ─── Testing ─────────────────────────────────────────────────────────────────
+pytest==8.2.2
+pytest-benchmark==4.0.0
+
+# ─── Video Generation (slideshow script) ─────────────────────────────────────
+moviepy==1.0.3
+Pillow>=10.0.0
+imageio==2.34.0
+imageio-ffmpeg==0.4.9
+
+# ─── Optional: PDF parsing for knowledge documents ───────────────────────────
+# pypdf==4.2.0
+
+# ─── Optional: Enhanced text splitting for RAG ────────────────────────────────
+# tiktoken==0.7.0

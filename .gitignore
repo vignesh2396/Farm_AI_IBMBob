@@ -1,0 +1,55 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+.env
+!.env.example
+
+# Secrets
+secrets.toml
+.streamlit/secrets.toml
+
+# Databases & Generated Data
+data/farmdata.db
+data/chroma_db/
+data/*.log
+
+# ChromaDB
+*.chroma
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Video output (generated locally)
+assets/farmai_slideshow.mp4
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak

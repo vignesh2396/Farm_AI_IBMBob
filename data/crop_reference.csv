@@ -1,0 +1,16 @@
+crop_id,crop_name,season,suitable_soils,min_rainfall_mm,max_temp_c,min_temp_c,water_req_mm,avg_yield_qtl,market_demand,duration_days
+1,Cotton,Kharif,"Vertisol,Black Cotton,Alfisol",500,43,20,700,8,High,180
+2,Soybean,Kharif,"Vertisol,Inceptisol,Alfisol",450,38,18,500,12,High,100
+3,Pigeonpea,Kharif,"Vertisol,Alfisol,Entisol",400,40,18,450,9,Medium,160
+4,Groundnut,Kharif,"Alfisol,Entisol,Inceptisol",500,38,22,500,18,High,120
+5,Green Gram,Kharif,"Inceptisol,Alfisol,Entisol",350,40,20,350,6,Medium,70
+6,Wheat,Rabi,"Inceptisol,Vertisol,Alfisol",250,30,5,400,35,High,120
+7,Chickpea,Rabi,"Vertisol,Inceptisol,Alfisol",200,30,5,300,12,High,110
+8,Mustard,Rabi,"Inceptisol,Alfisol,Entisol",200,28,5,250,10,Medium,110
+9,Sorghum (Jowar),Kharif,"Vertisol,Alfisol,Entisol,Inceptisol",350,42,18,400,20,Medium,110
+10,Pearl Millet (Bajra),Kharif,"Entisol,Alfisol,Inceptisol",300,44,22,300,18,Medium,90
+11,Sunflower,Kharif,"Inceptisol,Alfisol,Vertisol",400,35,15,450,12,Medium,90
+12,Maize (Corn),Kharif,"Inceptisol,Vertisol,Alfisol",500,35,15,500,25,High,110
+13,Lentil,Rabi,"Inceptisol,Alfisol,Vertisol",200,25,5,250,8,Medium,100
+14,Potato,Rabi,"Inceptisol,Alfisol,Entisol",400,22,5,450,100,High,90
+15,Sugarcane,Kharif,"Vertisol,Inceptisol",1000,35,18,1500,400,High,365

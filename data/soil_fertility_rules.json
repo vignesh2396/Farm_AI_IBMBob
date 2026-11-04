@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "description": "FarmAI Soil Fertility Classification Rules",
+  "source": "Based on ICAR Soil Health Card Guidelines + FAO Soil Classification",
+  "soil_classification": {
+    "Vertisol": {
+      "description": "Black Cotton Soil — heavy clay, high shrink-swell, common in Deccan plateau",
+      "alternate_names": ["Black Cotton Soil", "Regur Soil"],
+      "ph_range": [6.0, 9.0],
+      "typical_states": ["Maharashtra", "Madhya Pradesh", "Gujarat", "Karnataka"],
+      "key_indicators": {
+        "ph_min": 6.5,
+        "ph_max": 9.0,
+        "potassium_min": 55.0,
+        "organic_matter_max": 2.5
+      },
+      "suitable_crops": ["Cotton", "Soybean", "Sorghum", "Chickpea", "Pigeonpea"]
+    },
+    "Inceptisol": {
+      "description": "Alluvial / Loam Soil — moderate fertility, well-drained, common in river plains",
+      "alternate_names": ["Alluvial Loam", "Alluvial Soil"],
+      "ph_range": [6.5, 8.0],
+      "typical_states": ["Punjab", "Haryana", "Uttar Pradesh", "Bihar"],
+      "key_indicators": {
+        "ph_min": 6.5,
+        "ph_max": 8.0,
+        "nitrogen_min": 50.0,
+        "phosphorus_min": 30.0,
+        "organic_matter_min": 1.5
+      },
+      "suitable_crops": ["Wheat", "Rice", "Maize", "Sugarcane", "Potato"]
+    },
+    "Alfisol": {
+      "description": "Red Laterite Soil — moderate to low fertility, iron-rich, well-drained",
+      "alternate_names": ["Red Soil", "Red Laterite", "Lateritic Soil"],
+      "ph_range": [5.5, 7.5],
+      "typical_states": ["Andhra Pradesh", "Karnataka", "Tamil Nadu", "Odisha"],
+      "key_indicators": {
+        "ph_max": 6.5,
+        "phosphorus_max": 25.0
+      },
+      "suitable_crops": ["Groundnut", "Ragi", "Sorghum", "Sunflower", "Tobacco"]
+    },
+    "Entisol": {
+      "description": "Sandy Soil — low water retention, low organic matter, quick-draining",
+      "alternate_names": ["Sandy Soil", "Desert Soil", "Arid Soil"],
+      "ph_range": [6.0, 8.5],
+      "typical_states": ["Rajasthan", "Gujarat", "Haryana (some districts)"],
+      "key_indicators": {
+        "nitrogen_max": 30.0,
+        "phosphorus_max": 20.0,
+        "organic_matter_max": 1.0
+      },
+      "suitable_crops": ["Pearl Millet", "Sorghum", "Cowpea", "Sesame", "Clusterbean"]
+    }
+  },
+  "fertility_thresholds": {
+    "high": {
+      "description": "Score >= 70% of maximum NPK",
+      "min_composite_score": 70
+    },
+    "medium": {
+      "description": "Score 45-70% of maximum NPK",
+      "min_composite_score": 45
+    },
+    "low": {
+      "description": "Score < 45% of maximum NPK",
+      "min_composite_score": 0
+    }
+  },
+  "deficiency_thresholds": {
+    "nitrogen_low": 35.0,
+    "nitrogen_excess": 85.0,
+    "phosphorus_low": 20.0,
+    "phosphorus_excess": 80.0,
+    "potassium_low": 40.0,
+    "ph_zinc_risk_above": 7.8,
+    "ph_calcium_risk_below": 6.0,
+    "organic_matter_critical": 0.5,
+    "organic_matter_low": 1.5
+  }
+}
