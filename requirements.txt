@@ -12,6 +12,12 @@ pydantic==2.7.4
 pandas==2.2.2
 numpy==1.26.4
 
+
+# ─── Guardrails & Performance Dashboard ──────────────────────────────────────
+# utils/guardrails.py  — uses Python stdlib only (re, time, hashlib, dataclasses)
+# utils/performance_dashboard.py — requires streamlit (already listed above)
+
+
 # ─── Testing ─────────────────────────────────────────────────────────────────
 pytest==8.2.2
 pytest-benchmark==4.0.0

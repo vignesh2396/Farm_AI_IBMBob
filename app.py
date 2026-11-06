@@ -21,6 +21,7 @@ Features:
 import json
 import os
 import sys
+import time as _time
 from pathlib import Path
 
 import streamlit as st
@@ -28,6 +29,14 @@ import streamlit as st
 # ── Path Setup ─────────────────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
+
+# ── Guardrails & Performance Dashboard ────────────────────────────────────────
+from utils.guardrails import (
+    run_all_input_guardrails,
+    run_all_output_guardrails,
+    record_token_usage,
+)
+from utils.performance_dashboard import render_performance_dashboard
 
 # ── App Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -196,6 +205,7 @@ def render_sidebar():
             ("4", "Crop Suitability"),
             ("5", "Farm Operations Plan"),
             ("6", "Agricultural Advisory"),
+            ("7", "📊 Performance Dashboard"),
         ]
         current_step = st.session_state.get("step", 1)
         for num, name in steps:
@@ -778,22 +788,53 @@ def page_advisory():
     # Input
     query = st.chat_input("Ask a farming question, e.g., 'What is the best spacing for cotton?'")
     if query:
+        # ── Input Guardrails ────────────────────────────────────────────
+        guard = run_all_input_guardrails(query, session_id=st.session_state.get("session_id", ""))
+        if guard.blocked:
+            st.session_state["advisory_history"].append({"role": "user", "content": query})
+            st.session_state["advisory_history"].append({
+                "role": "assistant",
+                "content": (
+                    "⚠️ **Your message was blocked by safety guardrails**: "
+                    f"`{', '.join(guard.violations)}`\n\n"
+                    "Please rephrase your question."
+                ),
+            })
+            st.rerun()
+            return
+
+        safe_query = guard.sanitized_text or query
         st.session_state["advisory_history"].append({"role": "user", "content": query})
 
         supervisor = _get_supervisor()
         supervisor.state.farm_profile = profile
 
+        _start = _time.time()
         with st.spinner("🔍 Searching knowledge base..."):
-            result = supervisor.run_advisory(query)
+            result = supervisor.run_advisory(safe_query)
+        _latency = (_time.time() - _start) * 1000
 
         answer = result.get("answer", "")
         sources = result.get("sources", [])
         groundedness = result.get("groundedness_score", 0.0)
         high_impact = result.get("high_impact", False)
 
+        # ── Output Guardrails ───────────────────────────────────────────
+        out_guard = run_all_output_guardrails(answer)
+        if out_guard.blocked:
+            answer = "⚠️ The AI response was filtered for safety. Please consult a certified agricultural advisor."
+        else:
+            answer = out_guard.sanitized_text or answer
+
         # High-impact advisory flag
         if high_impact:
             answer += "\n\n⚠️ **This advice may require expert review before implementation.**"
+
+        # Record metrics
+        record_token_usage(len(safe_query.split()) * 2, len(answer.split()) * 2, cost_usd=0.0002)
+        if "session_metrics" not in st.session_state:
+            st.session_state["session_metrics"] = {}
+        st.session_state["session_metrics"]["avg_latency_ms"] = _latency
 
         st.session_state["advisory_history"].append({
             "role": "assistant",
@@ -881,14 +922,21 @@ def main():
         4: page_crop_suitability,
         5: page_farm_plan,
         6: page_advisory,
+        7: _render_performance_page,
     }
     pages.get(step, page_farm_profile)()
 
     # Agent trace panel
-    render_agent_trace()
+    if step != 7:
+        render_agent_trace()
 
     # Disclaimer
     render_disclaimer()
+
+
+def _render_performance_page():
+    """Render the LLM & Agent Performance Dashboard page."""
+    render_performance_dashboard(st.session_state.get("session_metrics", {}))
 
 
 if __name__ == "__main__":
